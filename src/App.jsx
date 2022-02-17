@@ -1,22 +1,15 @@
 import { useState } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 function App() {
   return (
-    <div class="container">
-      <form>
-        <label>
-          Meter number:
-          <input type="text" name="name"/>
-        </label>
-        <label>
-          Amount of money
-          <input type="text" name="name"/>
-        </label>
-        <input type="submit" value="Buy electricity" />
-      </form>
-    </div>
+    <Router>
+      <Navbar />
+      <Routes>
+      </Routes>
+    </Router>
   );
 }
 

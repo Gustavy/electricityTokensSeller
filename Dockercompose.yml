@@ -1,0 +1,39 @@
+version: '3'
+services:
+  prisma:
+    image: prismagraphql/prisma:1.17.1
+    restart: always
+    ports:
+    - "7220:7220"
+    environment:
+      PRISMA_CONFIG: |
+        port: 7220
+        # managementApiSecret: my-secret
+        databases:
+          default:
+            connector: postgres
+            host: postgres
+            port: 3000
+            user: prisma
+            password: prisma
+            migrations: true
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: prisma
+      POSTGRES_PASSWORD: prisma
+    volumes:
+      - postgres:/var/lib/postgresql/data
+  
+  server:
+    image: "etokenbe"
+    hostname: api
+    depends_on:
+      - "prisma"
+
+  client:
+    image: "etoken"
+    hostname: client
+    depends_on:
+      - "server"
